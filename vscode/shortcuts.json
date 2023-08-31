@@ -1,0 +1,83 @@
+// Geben Sie Ihre Tastenzuordnungen in dieser Datei ein, um die Standardwerte außer Kraft zu setzen.auto[]
+[
+    {
+        "key": "ctrl+alt+k",
+        "command": "bookmarks.toggleLabeled"
+    },
+    {
+        "key": "ctrl+alt+k",
+        "command": "-bookmarks.toggle",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "tab",
+        "command": "editor.action.inlineSuggest.commit",
+        "when": "textInputFocus && inlineSuggestionHasIndentationLessThanTabSize && inlineSuggestionVisible && !editorTabMovesFocus"
+    },
+    {
+        "key": "tab",
+        "command": "-markdown.extension.onTabKey",
+        "when": "editorTextFocus && markdown.extension.editor.cursor.inList && !editorHasMultipleSelections && !editorReadonly && !editorTabMovesFocus && !hasOtherSuggestions && !hasSnippetCompletions && !inSnippetMode && !inlineSuggestionVisible && !markdown.extension.editor.cursor.inFencedCodeBlock && !markdown.extension.editor.cursor.inMathEnv && !suggestWidgetVisible && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
+    },
+    {
+        "key": "f1",
+        "command": "-document.open",
+        "when": "editorLangId == 'ahk'"
+    },
+    {
+        "key": "alt+y",
+        "command": "editor.debug.action.showDebugHover",
+        "when": "editorTextFocus && inDebugMode"
+    },
+    {
+        "key": "alt+y",
+        "command": "editor.action.showHover",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+y",
+        "command": "workbench.action.terminal.focusHover",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalIsOpen || terminalFocus && terminalProcessSupported || terminalHasBeenCreated && terminalTabsFocus || terminalIsOpen && terminalTabsFocus || terminalProcessSupported && terminalTabsFocus"
+    },
+    {
+        "key": "alt+y",
+        "command": "workbench.action.showTreeHover",
+        "when": "customTreeView && listFocus && !inputFocus"
+    },
+    {
+        "key": "ctrl+alt+win+n",
+        "command": "-welcome.showNewFileEntries"
+    },
+    {
+        "key": "ctrl+n",
+        "command": "-workbench.action.files.newUntitledFile"
+    },
+    {
+        "key": "ctrl+n ctrl+n",
+        "command": "explorer.newFile"
+    },
+    {
+        "key": "ctrl+n ctrl+f",
+        "command": "explorer.newFolder"
+    },
+    {
+        "key": "f12",
+        "command": "editor.action.openLink"
+    },
+    {
+        "key": "ctrl+alt+c",
+        "command": "workbench.panel.chat.view.copilot.focus"
+    },
+    {
+        "key": "ctrl+oem_comma",
+        "command": "-workbench.action.openSettings",
+    },
+    {
+        "key": "ctrl+oem_comma",
+        "command": "workbench.action.openSettingsJson"
+    },
+    {
+        "key": "ctrl+n ctrl+r",
+        "command": "workbench.action.files.revert"
+    }
+]

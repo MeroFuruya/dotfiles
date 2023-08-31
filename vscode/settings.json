@@ -1,0 +1,315 @@
+{
+  // general config
+  "window.commandCenter": true,
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.colorTheme": "Default Dark Modern",
+  //
+  // file associations
+  "files.associations": {
+    "*.dsk": "ini",
+    "*.env.template": "properties",
+    "*.yml.template": "yaml",
+    "*.dproj": "xml",
+    "*.dpr": "objectpascal",
+  },
+  //
+  // editor
+  "editor.fontFamily": "'JetBrainsMono Nerd Font', Consolas, 'Courier New', monospace",
+  "editor.fontSize": 12,
+  "editor.fontWeight": "200",
+  "editor.codeLensFontFamily": "Lilex NF",
+  "editor.renderWhitespace": "boundary",
+  "editor.inlineSuggest.enabled": true,
+  "editor.smoothScrolling": true,
+  "editor.gotoLocation.multipleDeclarations": "gotoAndPeek",
+  "editor.gotoLocation.multipleReferences": "gotoAndPeek",
+  "editor.gotoLocation.multipleTypeDefinitions": "gotoAndPeek",
+  "editor.stickyScroll.enabled": true,
+  "editor.indentSize": "tabSize",
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": true,
+  //
+  // editor - theme
+  "editor.semanticHighlighting.enabled": false,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "comment",
+        "settings": {
+          "fontStyle": "italic bold",
+        }
+      },
+      {
+        "scope": "meta.object-literal.key",
+        "settings": {
+          "foreground": "#55f0af",
+        }
+      }
+    ]
+  },
+  //
+  // diff editor
+  "diffEditor.experimental.useVersion2": true,
+  //
+  // terminal
+  "terminal.integrated.fontFamily": "'JetBrainsMono Nerd Font'",
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.fontWeightBold": "600",
+  "terminal.integrated.fontWeight": "100",
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.customGlyphs": true,
+  "terminal.integrated.enableImages": true,
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell",
+      "args": [
+        "-NoLogo"
+      ],
+    },
+    "Command Prompt": {
+      "path": [
+        "${env:windir}\\Sysnative\\cmd.exe",
+        "${env:windir}\\System32\\cmd.exe",
+      ],
+      "args": [],
+      "icon": "terminal-cmd",
+    },
+    "Git Bash": {
+      "source": "Git Bash",
+    },
+  },
+  //
+  // zen mode
+  "zenMode.centerLayout": false,
+  "zenMode.hideTabs": true,
+  "zenMode.hideStatusBar": true,
+  "zenMode.silentNotifications": true,
+  "python.defaultInterpreterPath": "C:\\Program Files\\Python310\\python.exe",
+  "git.autofetch": true,
+  "git.suggestSmartCommit": false,
+  "git.confirmSync": false,
+  "git.ignoreRebaseWarning": true,
+  //
+  // gitlens
+  "gitlens.gitCommands.skipConfirmations": [
+    "fetch:command",
+    "stash-push:command",
+    "switch:command",
+    "push:command",
+    "pull:command",
+  ],
+  "gitlens.defaultDateLocale": null,
+  "gitlens.defaultDateShortFormat": null,
+  "gitlens.graph.minimap.additionalTypes": [
+    "localBranches",
+    "stashes",
+    "remoteBranches",
+    "tags",
+  ],
+  "gitlens.graph.scrollMarkers.additionalTypes": [
+    "localBranches",
+    "stashes",
+    "remoteBranches",
+  ],
+  //
+  // github copilot
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": true,
+    "markdown": true,
+    "scminput": false,
+    "yaml": true,
+    "csharp": false
+  },
+  //
+  // datetime
+  "dateTime.use24HourClock": true,
+  "dateTime.customFormat": "DD.MM.YYYY HH:mm",
+  "dateTime.clipboardFormat": "YYYYMMDD_HHmmss",
+  //
+  // vscord - discord rich presence
+  "vscord.status.idle.enabled": false,
+  "vscord.behaviour.suppressNotifications": true,
+  //
+  // better comments
+  "better-comments.highlightPlainText": true,
+  "better-comments.multilineComments": true,
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false,
+    },
+    {
+      "tag": "?",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false,
+    },
+    {
+      "tag": "\/\/",
+      "color": "#474747",
+      "strikethrough": true,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false,
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false,
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false,
+    },
+    {
+      "tag": "debug",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false,
+    },
+  ],
+  //
+  // newrelic code stream
+  "codestream.serverUrl": "https:\/\/codestream-us1.service.newrelic.com",
+  "codestream.email": "marius.kehl@mac.de",
+  //
+  // ----------- LANGUAGE SPECIFIC SETTINGS -----------
+  //
+  // pascal / delphi
+  "[objectpascal]": {
+    "editor.comments.insertSpace": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "omnipascal.delphiInstallationPath": "C:\\Program Files (x86)\\Embarcadero\\Studio\\22.0",
+  "omnipascal.createBuildScripts": true,
+  "omnipascal.namingConventionString": "camelCase",
+  "omnipascal.usesListStyle": "oneItemPerLine",
+  "omnipascal.symbolIndex": "searchPath",
+  "omnipascal.searchPath": "\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\lib\\\\Win32\\\\release\\\";C:\\\\Users\\\\KEHL\\\\Documents\\\\Embarcadero\\\\Studio\\\\22.0\\\\Imports;\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\Imports\\\";C:\\\\Users\\\\Public\\\\Documents\\\\Embarcadero\\\\Studio\\\\22.0\\\\Dcp;\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\includee\\\";c:\\\\programdata\\\\imageen\\\\delphi11alexandria;C:\\\\ProgramData\\\\macKomp\\\\22\\\\QuickReport\\\\QR6-RAD-11-1-Alexantria\\\\src;C:\\\\ProgramData\\\\macKomp\\\\22\\\\QRBarcode;C:\\\\ProgramData\\\\macKomp\\\\22\\\\Zornsoftware\\\\DelphXE11;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\Abbrevia\\\\source;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\ciphers;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\cryptography;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\hashes;\\\"C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\library surface\\\";C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\RSA;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\utilities;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\xmlpartner\\\\source;\\\"C:\\\\Program Files (x86)\\\\Embarcadero\\\\Studio\\\\22.0\\\\DOA\\\";C:\\\\ProgramData\\\\NexusDB\\\\NexusDB4;C:\\\\ProgramData\\\\macKomp\\\\22\\\\macEigen;C:\\\\Users\\\\KEHL\\\\Documents\\\\Embarcadero\\\\Studio\\\\22.0\\\\CatalogRepository\\\\Delphi4PythonExporter-D11-1.2.1\\\\Source;\\\"C:\\\\Users\\\\KEHL\\\\Documents\\\\tmssoftware\\\\GraphQL for Delphi\\\\source\\\\core\\\";\\\"C:\\\\Users\\\\KEHL\\\\Documents\\\\tmssoftware\\\\GraphQL for Delphi\\\\source\\\\http\\\" -R\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\lib\\\\Win32\\\\release\\\\DE\\\";\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\lib\\\\Win32\\\\release\\\";C:\\\\Users\\\\KEHL\\\\Documents\\\\Embarcadero\\\\Studio\\\\22.0\\\\Imports;\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\Imports\\\";C:\\\\Users\\\\Public\\\\Documents\\\\Embarcadero\\\\Studio\\\\22.0\\\\Dcp;\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\includee\\\";c:\\\\programdata\\\\imageen\\\\delphi11alexandria;C:\\\\ProgramData\\\\macKomp\\\\22\\\\QuickReport\\\\QR6-RAD-11-1-Alexantria\\\\src;C:\\\\ProgramData\\\\macKomp\\\\22\\\\QRBarcode;C:\\\\ProgramData\\\\macKomp\\\\22\\\\Zornsoftware\\\\DelphXE11;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\Abbrevia\\\\source;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\ciphers;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\cryptography;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\hashes;\\\"C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\library surface\\\";C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\RSA;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\utilities;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\xmlpartner\\\\source;\\\"C:\\\\Program Files (x86)\\\\Embarcadero\\\\Studio\\\\22.0\\\\DOA\\\";C:\\\\ProgramData\\\\NexusDB\\\\NexusDB4;C:\\\\ProgramData\\\\macKomp\\\\22\\\\macEigen;C:\\\\Users\\\\KEHL\\\\Documents\\\\Embarcadero\\\\Studio\\\\22.0\\\\CatalogRepository\\\\Delphi4PythonExporter-D11-1.2.1\\\\Source;\\\"C:\\\\Users\\\\KEHL\\\\Documents\\\\tmssoftware\\\\GraphQL for Delphi\\\\source\\\\core\\\";\\\"C:\\\\Users\\\\KEHL\\\\Documents\\\\tmssoftware\\\\GraphQL for Delphi\\\\source\\\\http\\\" -U\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\lib\\\\Win32\\\\debug\\\\DE\\\";\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\lib\\\\Win32\\\\debug\\\";\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\lib\\\\Win32\\\\release\\\\DE\\\";\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\lib\\\\Win32\\\\release\\\";C:\\\\Users\\\\KEHL\\\\Documents\\\\Embarcadero\\\\Studio\\\\22.0\\\\Imports;\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\Imports\\\";C:\\\\Users\\\\Public\\\\Documents\\\\Embarcadero\\\\Studio\\\\22.0\\\\Dcp;\\\"c:\\\\program files (x86)\\\\embarcadero\\\\studio\\\\22.0\\\\includee\\\";c:\\\\programdata\\\\imageen\\\\delphi11alexandria;C:\\\\ProgramData\\\\macKomp\\\\22\\\\QuickReport\\\\QR6-RAD-11-1-Alexantria\\\\src;C:\\\\ProgramData\\\\macKomp\\\\22\\\\QRBarcode;C:\\\\ProgramData\\\\macKomp\\\\22\\\\Zornsoftware\\\\DelphXE11;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\Abbrevia\\\\source;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\ciphers;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\cryptography;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\hashes;\\\"C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\library surface\\\";C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\RSA;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\LockBox3\\\\run\\\\utilities;C:\\\\ProgramData\\\\macKomp\\\\22\\\\TurboPower\\\\xmlpartner\\\\source;\\\"C:\\\\Program Files (x86)\\\\Embarcadero\\\\Studio\\\\22.0\\\\DOA\\\";C:\\\\ProgramData\\\\NexusDB\\\\NexusDB4;C:\\\\ProgramData\\\\macKomp\\\\22\\\\macEigen;C:\\\\Users\\\\KEHL\\\\Documents\\\\Embarcadero\\\\Studio\\\\22.0\\\\CatalogRepository\\\\Delphi4PythonExporter-D11-1.2.1\\\\Source;\\\"C:\\\\Users\\\\KEHL\\\\Documents\\\\tmssoftware\\\\GraphQL for Delphi\\\\source\\\\core\\\";\\\"C:\\\\Users\\\\KEHL\\\\Documents\\\\tmssoftware\\\\GraphQL for Delphi\\\\source\\\\http\\\"",
+  //
+  // markdown
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+  },
+  "markdown.preview.breaks": true,
+  "markdown.editor.pasteUrlAsFormattedLink.enabled": "smart",
+  "markdownlint.ignore": [
+    "MD033"
+  ],
+  //
+  // python
+  "[python]": {
+    "editor.formatOnType": true,
+    "editor.defaultFormatter": "ms-python.black-formatter",
+  },
+  "black-formatter.args": [
+    // set indent size to 2
+    "--line-length",
+    "79",
+    "--indent-size",
+    "2",
+  ],
+  //
+  // css
+  "[css]": {
+    "editor.defaultFormatter": "vscode.css-language-features",
+  },
+  //
+  // js/ts
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features",
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "eslint.enable": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+  ],
+  //
+  // c/c++
+  "[cpp]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+  },
+  "[c]": {
+    "editor.defaultFormatter": "ms-vscode.cpptools",
+  },
+  //
+  // nginx
+  "nginx-conf-hint.syntax": "sublime",
+  //
+  // autohotkey
+  "[ahk]": {
+    "editor.defaultFormatter": "cweijan.vscode-autohotkey-plus",
+  },
+  "vscode-ahk-plus.enableIntelliSense": true,
+  // ----------- Random settings -----------
+  //
+  // redhat telemetry
+  "redhat.telemetry.enabled": true,
+  //
+  // redhat xml
+  "xml.server.binary.trustedHashes": [
+    "7a3e56f1307ef13ee542f21131713c20aee66aed42ffd1dd417a5e0bbfd84558",
+  ],
+  //
+  // insert unicode
+  "insert-unicode.favorites": {
+    "directories": {},
+    "items": [
+      [
+        10132
+      ],
+      [
+        128512
+      ],
+      [
+        10004,
+        9932
+      ]
+    ],
+  },
+  //
+  // svg preview
+  "svg.preview.mode": "svg",
+  //
+  // deepL
+  "deepl.apiKey": "2065d661-906c-a50b-f643-6631412a044b:fx",
+  //
+  // edge devtools
+  "vscode-edge-devtools.webhint": false,
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "githubPullRequests.pullBranch": "never",
+  "workbench.sideBar.location": "right",
+}
