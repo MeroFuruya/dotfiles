@@ -12,6 +12,7 @@
     "*.yml.template": "yaml",
     "*.dproj": "xml",
     "*.dpr": "objectpascal",
+    ".env*": "dotenv"
   },
   //
   // editor
@@ -39,13 +40,19 @@
       {
         "scope": "comment",
         "settings": {
-          "fontStyle": "italic bold",
+          "fontStyle": "italic bold"
         }
       },
       {
         "scope": "meta.object-literal.key",
         "settings": {
-          "foreground": "#55f0af",
+          "foreground": "#55f0af"
+        }
+      },
+      {
+        "scope": "keyword.other.dotenv",
+        "settings": {
+          "foreground": "#FF000000"
         }
       }
     ]

@@ -17,6 +17,7 @@ DavidAnson.vscode-markdownlint
 dbaeumer.vscode-eslint
 donjayamanne.python-environment-manager
 donjayamanne.python-extension-pack
+dotenv.dotenv-vscode
 eamodio.gitlens
 ecmel.vscode-html-css
 EmbarcaderoTechnologies.delphilsp
