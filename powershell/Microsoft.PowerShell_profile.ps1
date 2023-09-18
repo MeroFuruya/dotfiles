@@ -155,6 +155,9 @@ Function thx {
 New-Alias -Name person -Value man
 New-Alias -name human -Value man
 
+# ls -> lsd alias
+Remove-Item Alias:ls -Force -ErrorAction Ignore
+New-Alias -Name ls -Value lsd -Force -Option AllScope
 
 ## FUNCTIONS
 
