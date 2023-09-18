@@ -89,6 +89,9 @@ New-Alias -Name npp -Value "C:\Program Files\Notepad++\notepad++.exe"
 # ntop -> top
 New-Alias -Name top -Value ntop
 
+# ConvertFrom-Json -> json
+New-Alias -Name json -Value ConvertFrom-Json
+
 ## WSL ALIASES
 
 # The commands to import.
