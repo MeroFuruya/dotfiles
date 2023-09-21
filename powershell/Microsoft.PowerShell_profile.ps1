@@ -202,3 +202,14 @@ Function Convert-Encoding {
     Set-Content -Encoding $Encoding -Force -Path $file -Value $text
   }
 }
+
+Function Update-wslLsd {
+  if (-not(Get-Command aws_completer.exe -ErrorAction SilentlyContinue)) {
+    throw "You dont have GitHub-cli installed. This is necessary for this Action"
+  }
+  gh auth status -h github.com -t > Out-Null
+  if ($LASTEXITCODE -ne 0) {
+    throw "make sure you are logged into GitHub, use ""gh auth login"" to do so!"
+  }
+  (gh api $($urls = @();$page=1;while($urls.Length -eq 0){(gh api repos/lsd-rs/lsd/actions/artifacts?page=$page|ConvertFrom-Json).artifacts|ForEach-Object{if($_.name -eq "lsd-x86_64-unknown-linux-gnu"){$urls=$urls+,$_.archive_download_url}};$page++};$urls[0]))|wsl -e bash -c "cat > /bin/lsd"
+}
