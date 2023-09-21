@@ -184,6 +184,7 @@ New-Alias -Name ls -Value lsd -Force -Option AllScope
 # update profile
 Function Update-Profile {
   Invoke-WebRequest -Uri https://raw.githubusercontent.com/MeroFuruya/dotfiles/main/powershell/Microsoft.PowerShell_profile.ps1 -OutFile $PROFILE
+  Write-Host "New Profile is Downloaded. Will be available on next restart of PowerShell :)"
 }
 
 # convert encoding
