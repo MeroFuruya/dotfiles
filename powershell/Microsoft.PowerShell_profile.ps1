@@ -159,21 +159,6 @@ function global:Format-WslArgument([string]$arg, [bool]$interactive) {
   }
 }
 
-# less wsl fix
-Function Out-WSLless {
-  if ($input.MoveNext()) {
-    $input.Reset()
-    $lessGUID = (New-Guid)
-    $input | Out-String -Stream | wsl -e bash -c "cat > /tmp/pager.$lessGUID"
-    Invoke-Expression "global:less $args /tmp/pager.$lessGUID"
-    wsl -e bash -c "rm /tmp/pager.$lessGUID"
-  }
-  else {
-    Invoke-Expression "global:less $args"
-  }
-}
-New-Alias -Name less -Value Out-WSLless
-
 # be gender neutral
 New-Alias -Name person -Value man
 New-Alias -name human -Value man
