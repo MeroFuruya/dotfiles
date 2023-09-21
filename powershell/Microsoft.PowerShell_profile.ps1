@@ -115,9 +115,14 @@ New-Alias -Name fe -Value ForEach-Object
 ## WSL ALIASES
 
 # The commands to import.
-$wslCommands = "awk", "grep", "head", "man", "sed", "seq", "ssh", "tail", "vim", "lsd", "mc", "nano", "sudo", "cat", "sh", "bat", "less"
+$wslCommands = @(
+  "awk", "grep", "head", "man",
+  "sed", "seq", "ssh", "tail",
+  "vim", "lsd", "mc", "nano",
+  "sudo", "cat", "sh", "bat",
+  "less", "bash"
+)
 
-# stolen from that article: https://devblogs.microsoft.com/commandline/integrate-linux-commands-into-windows-with-powershell-and-the-windows-subsystem-for-linux/
 # Register a function for each command.
 $wslCommands | ForEach-Object { Invoke-Expression @"
 Remove-Item Alias:$_ -Force -ErrorAction Ignore
@@ -134,7 +139,9 @@ function global:$_() {
 
     if (`$input.MoveNext()) {
         `$input.Reset()
-        `$input | wsl.exe $_ (`$args -split ' ')
+        `$inputFile = "/tmp/wslPipe.`$(New-Guid)"
+        `$input | Out-String -Stream | wsl -e bash -c "cat > `$inputFile"
+        wsl.exe -e bash -c "cat `$inputFile | $_ `$(`$args -split ' ') && rm `$inputFile"
     } else {
         wsl.exe $_ (`$args -split ' ')
     }
