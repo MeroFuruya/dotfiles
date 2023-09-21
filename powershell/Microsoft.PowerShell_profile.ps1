@@ -109,6 +109,9 @@ New-Alias -Name top -Value ntop
 # ConvertFrom-Json -> json
 New-Alias -Name json -Value ConvertFrom-Json
 
+# ForEach-Object -> fe
+New-Alias -Name fe -Value ForEach-Object
+
 ## WSL ALIASES
 
 # The commands to import.
@@ -164,20 +167,16 @@ Function Out-WSLless {
 }
 New-Alias -Name less -Value Out-WSLless
 
+# be gender neutral
+New-Alias -Name person -Value man
+New-Alias -name human -Value man
+
 ## FUN :)
 
 # thx
 Function thx {
   Write-Host "ur welcome :)"
 }
-
-# be gender neutral
-New-Alias -Name person -Value man
-New-Alias -name human -Value man
-
-# ls -> lsd alias
-Remove-Item Alias:ls -Force -ErrorAction Ignore
-New-Alias -Name ls -Value lsd -Force -Option AllScope
 
 ## FUNCTIONS
 
