@@ -18,8 +18,8 @@
 
 # oh-my-posh
 Invoke-Expression -Command $(oh-my-posh completion powershell | Out-String)
-oh-my-posh --init --shell pwsh --config "$env:POSH_THEMES_PATH/multiverse-neon.omp.json" | Invoke-Expression
-Set-PSReadlineOption -ExtraPromptLineCount 2 # count of lines for oh-my-posh
+oh-my-posh --init --shell pwsh --config "$env:POSH_THEMES_PATH/catppuccin_frappe.omp.json" | Invoke-Expression
+Set-PSReadlineOption -ExtraPromptLineCount 1 # count of lines for oh-my-posh
 
 ## PSReadline
 
