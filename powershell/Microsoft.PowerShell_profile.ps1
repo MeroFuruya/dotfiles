@@ -1,4 +1,4 @@
-b# This Powerhell-Profile is originally made by Marius Kehl (github.com/MeroFuruya)
+# This Powerhell-Profile is originally made by Marius Kehl (github.com/MeroFuruya)
 
 # tools used:
 # - git
