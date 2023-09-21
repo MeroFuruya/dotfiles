@@ -1,4 +1,4 @@
-# This Powerhell-Profile is originally made by Marius Kehl (github.com/MeroFuruya)
+b# This Powerhell-Profile is originally made by Marius Kehl (github.com/MeroFuruya)
 
 # tools used:
 # - git
@@ -180,6 +180,11 @@ Remove-Item Alias:ls -Force -ErrorAction Ignore
 New-Alias -Name ls -Value lsd -Force -Option AllScope
 
 ## FUNCTIONS
+
+# update profile
+Function Update-Profile {
+  Invoke-WebRequest -Uri https://raw.githubusercontent.com/MeroFuruya/dotfiles/main/powershell/Microsoft.PowerShell_profile.ps1 -OutFile $PROFILE
+}
 
 # convert encoding
 Function Convert-Encoding {
