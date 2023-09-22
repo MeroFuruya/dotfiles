@@ -6,7 +6,7 @@
 # - GitHub-cli
 # - notepad++
 # - oh-my-posh
-# - wsl2
+# - wsl2 (lsd-rs, Midnight Commander, jq)
 # - ntop
 
 # Powershell-Modules used:
@@ -120,7 +120,7 @@ $wslCommands = @(
   "sed", "seq", "ssh", "tail",
   "vim", "lsd", "mc", "nano",
   "sudo", "cat", "sh", "bat",
-  "less", "bash"
+  "less", "bash", "jq"
 )
 
 # Register a function for each command.
