@@ -129,10 +129,10 @@ Remove-Item Alias:$_ -Force -ErrorAction Ignore
 function global:$_() {
     for (`$i = 0; `$i -lt `$args.Count; `$i++) {
         # If a path is absolute with a qualifier (e.g. C:), run it through wslpath to map it to the appropriate mount point.
-        if (Split-Path `$args[`$i] -IsAbsolute -ErrorAction Ignore) {
+        if (Split-Path `$args[`$i] -IsAbsolute -ErrorAction SilentlyContinue) {
             `$args[`$i] = Format-WslArgument (wsl.exe wslpath (`$args[`$i] -replace "\\", "/"))
         # If a path is relative, the current working directory will be translated to an appropriate mount point, so just format it.
-        } elseif (Test-Path `$args[`$i] -ErrorAction Ignore) {
+        } elseif (Test-Path `$args[`$i] -ErrorAction SilentlyContinue) {
             `$args[`$i] = Format-WslArgument (`$args[`$i] -replace "\\", "/")
         }
     }
