@@ -68,35 +68,35 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 if [[ -f /opt/homebrew/bin/brew ]]; then
   # Initialize brew
   eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
-  if type brew &> /dev/null; then
-    # Initialize brew auto-completions
-    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-    autoload -Uz compinit
-    compinit
+if [[ -n "$HOMEBREW_PREFIX" ]] then
+  # Initialize brew auto-completions
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+  autoload -Uz compinit
+  compinit
+fi
 
-    # Postgres
-    add_to_path_brew() {
-      local BREW_REFIX
-      if BREW_REFIX=$(brew --prefix --installed $1 2> /dev/null); then
-        if [[ -n "$2" ]]; then
-          add_to_path "$BREW_PREFIX/${2}";
-        else
-          add_to_path "$BREW_PREFIX";
-        fi
-      fi
-    }
-
-    add_to_path_brew "libpq" "bin"
-    add_to_path_brew "postgresql@16" "bin"
-
-
-    # java
-    local JAVA_BREW_REFIX
-    if JAVA_BREW_REFIX=$(brew --prefix --installed $1 2> /dev/null); then
-      export JAVA_HOME="$JAVA_BREW_REFIX/"
+add_to_path_brew() {
+  local BREW_REFIX
+  if BREW_REFIX=$(brew --prefix --installed $1 2> /dev/null); then
+    if [[ -n "$2" ]]; then
+      add_to_path "$BREW_PREFIX/${2}";
+    else
+      add_to_path "$BREW_PREFIX";
     fi
   fi
+}
+
+# Postgres
+add_to_path_brew "libpq" "bin"
+add_to_path_brew "postgresql@16" "bin"
+
+
+# java
+local JAVA_BREW_REFIX
+if JAVA_BREW_REFIX=$(brew --prefix --installed $1 2> /dev/null); then
+  export JAVA_HOME="$JAVA_BREW_REFIX/"
 fi
 
 # ==== asdf ====
