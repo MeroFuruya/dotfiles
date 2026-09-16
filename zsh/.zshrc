@@ -227,8 +227,19 @@ alias uuidfromc='uuid="${${${$(pbpaste):l}/\{}/\}}" && echo $uuid && echo -n $uu
 # brew install kojix2/brew/deepl-cli
 
 if type deepl &> /dev/null; then
-  alias en="(){echo -n \${1:-\$(</dev/stdin)} | deepl -t en ;}"
-  export DEEPL_AUTH_KEY="2065d661-906c-a50b-f643-6631412a044b:fx"
+  deepl() {
+    if [[ ! -n "$DEEPL_AUTH_KEY" ]]; then
+      export DEEPL_AUTH_KEY="$(op item get jvcbeehd466j6eemmt7fkhvc6u --reveal --fields label=credential --account RYFUCHTX2RDM5BHXFVCGANRZAY)"
+    fi
+    /usr/bin/env deepl $@
+  }
+  alias deepl="deepl"
+
+  deepl-en() {
+    local VALUE="${1:-"$(</dev/stdin)"}"
+    echo -n $VALUE | deepl -t en
+  }
+  alias deepl-en="deepl-en"
 fi
 
 # ==== Image Helpers ====
