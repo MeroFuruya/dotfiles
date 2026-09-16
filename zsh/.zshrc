@@ -46,6 +46,8 @@ alias zshconfig="$EDITOR ~/.zshrc"
 alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
 
 # brew
+export HOMEBREW_NO_AUTO_UPDATE=1
+
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 if type brew &>/dev/null
