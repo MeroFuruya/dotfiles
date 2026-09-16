@@ -62,7 +62,7 @@ export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
 # fastfetch
 FETCH_TERMS=(ghostty)
 if (($FETCH_TERMS[(Ie)$TERM_PROGRAM])) then
-  fastfetch
+#  fastfetch
 fi
 
 # spacetimedb
@@ -80,7 +80,7 @@ alias ssh="TERM=xterm-256color ssh"
 # ghostty
 alias gtty="/Applications/Ghostty.app/Contents/MacOS/ghostty"
 
-# python aliases
+# Python
 export PIP_REQUIRE_VIRTUALENV=true
 function _pyvenv() {
   venv_dirname=${1:-.venv}
@@ -99,7 +99,7 @@ function _pyvenv() {
 
 alias pyvenv="_pyvenv"
 
-export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc.py"
+# export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc.py"
 
 # git aliases
 alias gps="git push --set-origin"
