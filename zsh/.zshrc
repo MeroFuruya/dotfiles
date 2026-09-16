@@ -1,4 +1,4 @@
-# This ZSH-Profile is originally made by Marius Kehl (github.com/MeroFuruya)
+# This ZSH-Profile is originally made by MeroFuruya (github.com/MeroFuruya)
 
 # ==== Path ====
 
@@ -252,12 +252,12 @@ imgcopy() {
 }
 
 qrgen() {
-  local OUT_FILE="$TMPDIR/zsh_qrcode_image_$(uuidgen).jpeg"
-
   if ! type qrencode &> /dev/null; then
     echo "qrencode is required; Can be installed via \"brew install qrencode\""
     return 1
   fi
+
+  local OUT_FILE="$TMPDIR/zsh_qrcode_image_$(uuidgen).jpeg"
 
   if ! qrencode -o "$OUT_FILE" $@; then
     return $?
