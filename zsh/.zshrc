@@ -174,7 +174,7 @@ alias cdg="cdg"
 
 # ==== GitHub-cli ====
 
-function _ghma() {
+function ghma() {
   echo $@
   for arg in "$@"; do
     echo "AutoMerges and Approves PR $arg"
@@ -182,7 +182,7 @@ function _ghma() {
     gh pr review -a "$arg"
   done
 }
-alias ghma="_ghma"
+alias ghma="ghma"
 
 alias ghrepoweb="open \$(gh repo view --json url --template '{{.url}}')"
 alias ghprc="gh pr create --fill -a @me"
