@@ -78,6 +78,10 @@ if [[ -n "$HOMEBREW_PREFIX" ]] then
 fi
 
 add_to_path_brew() {
+  if [[ -n "$HOMEBREW_PREFIX" ]] then
+    return 0;
+  fi
+  
   local BREW_REFIX
   if BREW_REFIX=$(brew --prefix --installed $1 2> /dev/null); then
     if [[ -n "$2" ]]; then
