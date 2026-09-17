@@ -8,7 +8,7 @@ add_to_path() {
   fi
 }
 
-add_to_path "/Users/marius/.local/bin"
+add_to_path "$HOME/.local/bin/"
 
 # ARM Toolchain
 add_to_path "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/bin"
