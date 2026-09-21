@@ -1,5 +1,11 @@
 # This ZSH-Profile is originally made by MeroFuruya (github.com/MeroFuruya)
 
+# ==== Profile-Profiling ====
+
+if [[ -n $ZSH_PROFILE_PROFILING ]]; then
+  zmodload zsh/zprof
+fi
+
 # ==== Path ====
 
 add_to_path() {
@@ -41,17 +47,21 @@ alias zshconfig="$EDITOR ~/.zshrc"
 
 # ==== Oh My ZSH ===
 
+DISABLE_AUTO_UPDATE="true"
+DISABLE_MAGIC_FUNCTIONS="true"
+DISABLE_COMPFIX="true"
+
 export ZSH="$XDG_CONFIG_HOME/oh-my-zsh"
+
+# prevent creation of .zcompdump files in home directory
+# See https://github.com/ohmyzsh/ohmyzsh/issues/7332
+export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="apple"
-
-# prevent creation of .zcompdump files in home directory
-# See https://github.com/ohmyzsh/ohmyzsh/issues/7332
-export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -74,8 +84,6 @@ fi
 if [[ -n "$HOMEBREW_PREFIX" ]] then
   # Initialize brew auto-completions
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
-  autoload -Uz compinit
-  compinit
 fi
 
 add_to_path_brew() {
@@ -298,3 +306,19 @@ export AWS_DEFAULT_OUTPUT="json"
 
 export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export DOCKER_HOST="unix://${XDG_CONFIG_HOME}/colima/default/docker.sock"
+
+# ==== Completion ====
+autoload -Uz compinit
+compinit
+# if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' "$ZSH_COMPDUMP" 2>/dev/null)" ]; then
+#   compinit
+# else
+#   compinit -C
+# fi
+
+# ==== Profile-Profiling ====
+
+if [[ -n $ZSH_PROFILE_PROFILING ]]; then
+  zprof
+fi
+
