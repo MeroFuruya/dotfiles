@@ -13,8 +13,6 @@ add_to_path "$HOME/.local/bin/"
 # ARM Toolchain
 add_to_path "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/bin"
 
-export ANDROID_HOME="/Users/marius/Library/Android/sdk"
-
 # ==== Basic Env Vars ====
 
 # XDG Folders
@@ -29,6 +27,9 @@ elif [[ -n $SSH_CONNECTION ]]; then
 else
   export EDITOR='nvim'
 fi
+
+# Android
+export ANDROID_HOME="/Users/marius/Library/Android/sdk"
 
 # ==== ZSH ====
 
@@ -109,6 +110,21 @@ export ASDF_DATA_DIR="${ASDF_DATA_DIR:-"$HOME/.asdf"}"
 
 if [[ -d "$ASDF_DATA_DIR" ]]; then
   add_to_path "${ASDF_DATA_DIR:-$HOME/.asdf}/shims"
+fi
+
+# ==== 1Password ====
+
+op_get_credential() {
+  if [[ $# != 3 ]]; then
+    echo "Usage: <account-id> <item-id> <field>" >&2
+    return 1
+  fi
+  op item get $2 --reveal --fields label=$3 --account $1
+}
+
+local OP_PLUGINS_FILE="$XDG_CONFIG_HOME/op/plugins.sh"
+if [[ -f "$OP_PLUGINS_FILE" && ! -n $OP_PLUGIN_ALIASES_SOURCED ]]; then
+  source "$OP_PLUGINS_FILE"
 fi
 
 # ==== Basic Aliases ====
@@ -273,3 +289,12 @@ qrgen() {
 
   imgcopy "$OUT_FILE"
 }
+
+# ==== AWS ====
+
+export AWS_DEFAULT_OUTPUT="json"
+
+# ==== Docker ====
+
+export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
+export DOCKER_HOST="unix://${XDG_CONFIG_HOME}/colima/default/docker.sock"
