@@ -49,78 +49,83 @@ alias zshconfig="$EDITOR ~/.zshrc"
 # See https://github.com/ohmyzsh/ohmyzsh/issues/7332
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
-# ==== Bindings ====
+# ==== ZLE Bindings ====
 
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
-# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
+# Keep the terminal in application-keypad mode while ZLE is active so that
+# terminfo key sequences are valid.
+if (( ${+terminfo[smkx]} && ${+terminfo[rmkx]} )); then
+  zle-line-init()   { echoti smkx }
+  zle-line-finish() { echoti rmkx }
 
-# Make sure that the terminal is in application mode when zle is active, since
-# only then values from $terminfo are valid
-if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
-  function zle-line-init() {
-    echoti smkx
-  }
-  function zle-line-finish() {
-    echoti rmkx
-  }
   zle -N zle-line-init
   zle -N zle-line-finish
 fi
 
-bind() {
-  if [[ -n $1 ]]; then
-    bindkey -M emacs $1 $2
-  fi
+# Bind a terminfo sequence if it exists.
+bind-terminfo() {
+  [[ -n "$1" ]] && bindkey -M emacs "$1" "$2"
 }
 
-# Use emacs key bindings
+# Use Emacs-style line editing.
 bindkey -e
 
-# Start typing + [Up-Arrow] - fuzzy find history forward
-autoload -U up-line-or-beginning-search
+
+# History
+
+autoload -U up-line-or-beginning-search \
+            down-line-or-beginning-search
+
 zle -N up-line-or-beginning-search
-
-bindkey -M emacs "^[[A" up-line-or-beginning-search
-bind "${terminfo[kcuu1]}" up-line-or-beginning-search
-
-# Start typing + [Down-Arrow] - fuzzy find history backward
-autoload -U down-line-or-beginning-search
 zle -N down-line-or-beginning-search
 
-bindkey -M emacs "^[[B" down-line-or-beginning-search
-bind "${terminfo[kcud1]}" down-line-or-beginning-search
+# [Up] / [Down] - search history by the already typed prefix
+bindkey -M emacs '^[[A' up-line-or-beginning-search
+bindkey -M emacs '^[[B' down-line-or-beginning-search
 
-# [Home] - Go to beginning of line
-bind "${terminfo[khome]}" beginning-of-line
-# [End] - Go to end of line
-bind "${terminfo[kend]}"  end-of-line
+bind-terminfo "${terminfo[kcuu1]}" up-line-or-beginning-search
+bind-terminfo "${terminfo[kcud1]}" down-line-or-beginning-search
 
-# [Shift-Tab] - move through the completion menu backwards
-bind "${terminfo[kcbt]}" reverse-menu-complete
+# [Ctrl-R] - incremental backward history search
+bindkey '^r' history-incremental-search-backward
 
-# [Backspace] - delete backward
+
+# Navigation
+
+# [Home] / [End] - move to beginning/end of line
+bind-terminfo "${terminfo[khome]}" beginning-of-line
+bind-terminfo "${terminfo[kend]}"  end-of-line
+
+# [Ctrl-Right] / [Ctrl-Left] - move by word
+bindkey -M emacs '^[[1;5C' forward-word
+bindkey -M emacs '^[[1;5D' backward-word
+
+# [Shift-Tab] - move backwards through the completion menu
+bind-terminfo "${terminfo[kcbt]}" reverse-menu-complete
+
+
+# Editing
+
+# [Backspace] - delete backwards
 bindkey -M emacs '^?' backward-delete-char
-# [Delete] - delete forward
+
+# [Delete] - delete forwards
 if [[ -n "${terminfo[kdch1]}" ]]; then
   bindkey -M emacs "${terminfo[kdch1]}" delete-char
 else
-  bindkey -M emacs "^[[3~" delete-char
-  bindkey -M emacs "^[3;5~" delete-char
+  bindkey -M emacs '^[[3~' delete-char
 fi
 
-# [Ctrl-Delete] - delete whole forward-word
+# [Ctrl-Delete] - delete the next word
 bindkey -M emacs '^[[3;5~' kill-word
 
-# [Ctrl-RightArrow] - move forward one word
-bindkey -M emacs '^[[1;5C' forward-word
-# [Ctrl-LeftArrow] - move backward one word
-bindkey -M emacs '^[[1;5D' backward-word
+# [Esc-W] - kill from cursor to mark
+bindkey '\ew' kill-region
 
-bindkey '\ew' kill-region                             # [Esc-w] - Kill from the cursor to the mark
-bindkey -s '\el' '^q ls\n'                            # [Esc-l] - run command: ls
-bindkey '^r' history-incremental-search-backward      # [Ctrl-r] - Search backward incrementally for a specified string. The string may begin with ^ to anchor the search to the beginning of the line.
-bindkey ' ' magic-space                               # [Space] - don't do history expansion
+
+# Miscellaneous
+
+# [Space] - expand history references such as !! and !$
+bindkey ' ' magic-space
 
 # ==== Brew ====
 
