@@ -1,0 +1,42 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = "$os $directory $git_branch$git_status "
+
+add_newline = false
+
+[os]
+disabled = false
+style = "#babbf1"
+symbols = { Macos = "󰀵", Debian = "󰣚" }
+
+[time]
+# disabled = false
+time_format = "%R"
+# time_format = "%T"
+style = "#babbf1"
+format = '[$time]($style)'
+
+[directory]
+style = "#74c7ec"
+format = "[$path]($style)"
+truncation_length = 300
+# truncate_to_repo = true
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+style = "#a6d189"
+format = '[\($branch]($style)'
+
+# [git_status]
+# style = "#f9e2af"
+# format = '[($all_status$ahead_behind )]($style)'
+
+[git_status]
+format = '[$all_status$ahead_behind\)]($style)'
+style = "#a6d189"

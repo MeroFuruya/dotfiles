@@ -45,32 +45,9 @@ zstyle ':omz:update' mode reminder
 
 alias zshconfig="$EDITOR ~/.zshrc"
 
-# ==== Oh My ZSH ===
-
-DISABLE_AUTO_UPDATE="true"
-DISABLE_MAGIC_FUNCTIONS="true"
-DISABLE_COMPFIX="true"
-
-export ZSH="$XDG_CONFIG_HOME/oh-my-zsh"
-
 # prevent creation of .zcompdump files in home directory
 # See https://github.com/ohmyzsh/ohmyzsh/issues/7332
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
-
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="apple"
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git 1password)
-
-# Actually load and initialize OMZ
-source $ZSH/oh-my-zsh.sh
 
 # ==== Brew ====
 
@@ -100,6 +77,11 @@ add_to_path_brew() {
     fi
   fi
 }
+
+# Reload Completion Cache
+
+autoload -Uz compinit
+compinit
 
 # Postgres
 add_to_path_brew "libpq" "bin"
@@ -187,6 +169,42 @@ alias pyvenv="_pyvenv"
 # ==== git ====
 export GIT_REPOS_DIR="$HOME/repos"
 
+function git_current_branch() {
+  local ref
+  ref=$(__git_prompt_git symbolic-ref --quiet HEAD 2> /dev/null)
+  local ret=$?
+  if [[ $ret != 0 ]]; then
+    [[ $ret == 128 ]] && return  # no git repo.
+    ref=$(__git_prompt_git rev-parse --short HEAD 2> /dev/null) || return
+  fi
+  echo ${ref#refs/heads/}
+}
+
+function git_main_branch() {
+  command git rev-parse --git-dir &>/dev/null || return
+  
+  local remote ref
+  
+  for ref in refs/{heads,remotes/{origin,upstream}}/{main,trunk,mainline,default,stable,master}; do
+    if command git show-ref -q --verify $ref; then
+      echo ${ref:t}
+      return 0
+    fi
+  done
+  
+  # Fallback: try to get the default branch from remote HEAD symbolic refs
+  for remote in origin upstream; do
+    ref=$(command git rev-parse --abbrev-ref $remote/HEAD 2>/dev/null)
+    if [[ $ref == $remote/* ]]; then
+      echo ${ref#"$remote/"}; return 0
+    fi
+  done
+
+  # If no main branch was found, fall back to master but return error
+  echo master
+  return 1
+}
+
 alias gps="git push --set-origin"
 alias glf="git pull -fp"
 alias gbc="git branch --show-current"
@@ -198,7 +216,33 @@ cdg() {
   cd "$GIT_REPOS_DIR/$1";
 }
 compdef '_files -/ -W $GIT_REPOS_DIR' cdg
-alias cdg="cdg"
+
+alias g='git'
+alias ga='git add'
+alias gaa='git add --all'
+alias gb='git branch'
+alias gba='git branch --all'
+alias gbd='git branch --delete'
+alias gbD='git branch --delete --force'
+alias gcmsg='git commit --message'
+alias gd='git diff'
+alias gdca='git diff --cached'
+alias gdcw='git diff --cached --word-diff'
+alias gds='git diff --staged'
+alias gdw='git diff --word-diff'
+alias gm='git merge'
+alias gma='git merge --abort'
+alias gmc='git merge --continue'
+alias gms="git merge --squash"
+alias gmff="git merge --ff-only"
+alias gmom='git merge origin/$(git_main_branch)'
+alias gmum='git merge upstream/$(git_main_branch)'
+alias gl='git pull'
+alias gp='git push'
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
+alias gsw='git switch'
+alias gswc='git switch --create'
+alias gswm='git switch $(git_main_branch)'
 
 # ==== GitHub-cli ====
 
@@ -308,13 +352,13 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export DOCKER_HOST="unix://${XDG_CONFIG_HOME}/colima/default/docker.sock"
 
 # ==== Completion ====
-autoload -Uz compinit
-compinit
 # if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' "$ZSH_COMPDUMP" 2>/dev/null)" ]; then
 #   compinit
 # else
 #   compinit -C
 # fi
+
+eval "$(starship init zsh)"
 
 # ==== Profile-Profiling ====
 
