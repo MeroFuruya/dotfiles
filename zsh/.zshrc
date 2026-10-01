@@ -49,6 +49,79 @@ alias zshconfig="$EDITOR ~/.zshrc"
 # See https://github.com/ohmyzsh/ohmyzsh/issues/7332
 export ZSH_COMPDUMP=$ZSH/cache/.zcompdump-$HOST
 
+# ==== Bindings ====
+
+# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html
+# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Zle-Builtins
+# http://zsh.sourceforge.net/Doc/Release/Zsh-Line-Editor.html#Standard-Widgets
+
+# Make sure that the terminal is in application mode when zle is active, since
+# only then values from $terminfo are valid
+if (( ${+terminfo[smkx]} )) && (( ${+terminfo[rmkx]} )); then
+  function zle-line-init() {
+    echoti smkx
+  }
+  function zle-line-finish() {
+    echoti rmkx
+  }
+  zle -N zle-line-init
+  zle -N zle-line-finish
+fi
+
+bind() {
+  if [[ -n $1 ]]; then
+    bindkey -M emacs $1 $2
+  fi
+}
+
+# Use emacs key bindings
+bindkey -e
+
+# Start typing + [Up-Arrow] - fuzzy find history forward
+autoload -U up-line-or-beginning-search
+zle -N up-line-or-beginning-search
+
+bindkey -M emacs "^[[A" up-line-or-beginning-search
+bind "${terminfo[kcuu1]}" up-line-or-beginning-search
+
+# Start typing + [Down-Arrow] - fuzzy find history backward
+autoload -U down-line-or-beginning-search
+zle -N down-line-or-beginning-search
+
+bindkey -M emacs "^[[B" down-line-or-beginning-search
+bind "${terminfo[kcud1]}" down-line-or-beginning-search
+
+# [Home] - Go to beginning of line
+bind "${terminfo[khome]}" beginning-of-line
+# [End] - Go to end of line
+bind "${terminfo[kend]}"  end-of-line
+
+# [Shift-Tab] - move through the completion menu backwards
+bind "${terminfo[kcbt]}" reverse-menu-complete
+
+# [Backspace] - delete backward
+bindkey -M emacs '^?' backward-delete-char
+# [Delete] - delete forward
+if [[ -n "${terminfo[kdch1]}" ]]; then
+  bindkey -M emacs "${terminfo[kdch1]}" delete-char
+else
+  bindkey -M emacs "^[[3~" delete-char
+  bindkey -M emacs "^[3;5~" delete-char
+fi
+
+# [Ctrl-Delete] - delete whole forward-word
+bindkey -M emacs '^[[3;5~' kill-word
+
+# [Ctrl-RightArrow] - move forward one word
+bindkey -M emacs '^[[1;5C' forward-word
+# [Ctrl-LeftArrow] - move backward one word
+bindkey -M emacs '^[[1;5D' backward-word
+
+bindkey '\ew' kill-region                             # [Esc-w] - Kill from the cursor to the mark
+bindkey -s '\el' '^q ls\n'                            # [Esc-l] - run command: ls
+bindkey '^r' history-incremental-search-backward      # [Ctrl-r] - Search backward incrementally for a specified string. The string may begin with ^ to anchor the search to the beginning of the line.
+bindkey ' ' magic-space                               # [Space] - don't do history expansion
+
 # ==== Brew ====
 
 export HOMEBREW_NO_AUTO_UPDATE=1
@@ -205,18 +278,17 @@ function git_main_branch() {
   return 1
 }
 
-alias gps="git push --set-origin"
-alias glf="git pull -fp"
-alias gbc="git branch --show-current"
-alias gb-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}"'
-alias gbd-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -d'
-
 cdg() {
   # this must be a function to work with compdef
   cd "$GIT_REPOS_DIR/$1";
 }
 compdef '_files -/ -W $GIT_REPOS_DIR' cdg
 
+alias gps="git push --set-origin"
+alias glf="git pull -fp"
+alias gbc="git branch --show-current"
+alias gb-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}"'
+alias gbd-untracked='git fetch --prune && git branch -r | awk "{print \$1}" | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk "{print \$1}" | xargs git branch -d'
 alias g='git'
 alias ga='git add'
 alias gaa='git add --all'
@@ -254,7 +326,6 @@ function ghma() {
     gh pr review -a "$arg"
   done
 }
-alias ghma="ghma"
 
 alias ghrepoweb="open \$(gh repo view --json url --template '{{.url}}')"
 alias ghprc="gh pr create --fill -a @me"
