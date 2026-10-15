@@ -1,6 +1,6 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
-format = "$os $directory $git_branch$git_status "
+format = "$os $python$directory $git_branch$git_status"
 
 add_newline = false
 
@@ -33,10 +33,9 @@ truncation_length = 20
 style = "#a6d189"
 format = '[\[$branch]($style)'
 
-# [git_status]
-# style = "#f9e2af"
-# format = '[($all_status$ahead_behind )]($style)'
-
 [git_status]
-format = '[$all_status$ahead_behind\]]($style)'
 style = "#a6d189"
+format = '[$all_status$ahead_behind\] ]($style)'
+
+[python]
+format = "\\($virtualenv\\) "

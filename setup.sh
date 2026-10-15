@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 SCRIPT_DIR="$(dirname "$0" | realpath)"
-
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-"$HOME/.config"}"
+OS="$(uname -s)"
 
 link_directory() {
   if [[ ! -d "$1" ]]; then
@@ -26,6 +26,16 @@ link_file() {
   fi
 }
 
+set_env() {
+  if [[ $OS == "Darwin" ]]; then
+    launchctl setenv "$1" "$2"
+  fi
+}
+
+# Env Vars
+
+set_env "XDG_CONFIG_HOME" "$XDG_CONFIG_HOME"
+
 # zsh
 link_file "$SCRIPT_DIR/zsh/.zshrc" "$HOME/.zshrc"
 
@@ -34,3 +44,9 @@ link_directory "$SCRIPT_DIR/nvim/" "$XDG_CONFIG_HOME/nvim"
 
 # ghostty
 link_directory "$SCRIPT_DIR/ghostty/" "$HOME/Library/Application Support/com.mitchellh.ghostty"
+
+# starship
+link_file "$SCRIPT_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
+
+# terminal-browser
+

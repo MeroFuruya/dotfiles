@@ -22,7 +22,7 @@ add_to_path "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/bin"
 # ==== Basic Env Vars ====
 
 # XDG Folders
-export XDG_CONFIG_HOME="$HOME/.config"
+# export XDG_CONFIG_HOME="$HOME/.config"
 export C=$XDG_CONFIG_HOME
 
 # Preferred editor
@@ -211,7 +211,8 @@ alias q='exit'
 alias relpf="exec zsh"
 alias clip="pbcopy"
 alias todo="code ~/Documents/TODO.md"
-alias b="btop"
+alias t="btop"
+alias tb="terminal-browser"
 alias v="nvim"
 alias e="$EDITOR"
 
@@ -249,11 +250,11 @@ export GIT_REPOS_DIR="$HOME/repos"
 
 function git_current_branch() {
   local ref
-  ref=$(__git_prompt_git symbolic-ref --quiet HEAD 2> /dev/null)
+  ref=$(git symbolic-ref --quiet HEAD 2> /dev/null)
   local ret=$?
   if [[ $ret != 0 ]]; then
     [[ $ret == 128 ]] && return  # no git repo.
-    ref=$(__git_prompt_git rev-parse --short HEAD 2> /dev/null) || return
+    ref=$(git rev-parse --short HEAD 2> /dev/null) || return
   fi
   echo ${ref#refs/heads/}
 }
@@ -284,8 +285,7 @@ function git_main_branch() {
 }
 
 cdg() {
-  # this must be a function to work with compdef
-  cd "$GIT_REPOS_DIR/$1";
+  cd "$GIT_REPOS_DIR/$1"
 }
 compdef '_files -/ -W $GIT_REPOS_DIR' cdg
 
