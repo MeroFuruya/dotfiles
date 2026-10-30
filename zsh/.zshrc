@@ -22,7 +22,7 @@ add_to_path "/Applications/ArmGNUToolchain/15.2.rel1/arm-none-eabi/bin"
 # ==== Basic Env Vars ====
 
 # XDG Folders
-# export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CONFIG_HOME="$HOME/.config"
 export C=$XDG_CONFIG_HOME
 
 # Preferred editor
@@ -130,6 +130,7 @@ bindkey ' ' magic-space
 # ==== Brew ====
 
 export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_USER_CONFIG_HOME="${XDG_CONFIG_HOME}/homebrew"
 
 if [[ -f /opt/homebrew/bin/brew ]]; then
   # Initialize brew

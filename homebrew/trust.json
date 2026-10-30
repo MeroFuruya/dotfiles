@@ -1,0 +1,11 @@
+{
+  "trustedformulae": [
+    "omlahore/tap/removemacai",
+    "kojix2/brew/deepl-cli",
+    "pulumi/tap/pulumi",
+    "xo/xo/usql"
+  ],
+  "trustedcasks": [
+    "darrylmorley/whatport/whatport"
+  ]
+}
