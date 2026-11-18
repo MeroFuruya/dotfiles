@@ -35,7 +35,7 @@ else
 fi
 
 # Android
-export ANDROID_HOME="/Users/marius/Library/Android/sdk"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
 
 # ==== ZSH ====
 
@@ -71,7 +71,6 @@ bindkey -e
 
 
 # History
-
 autoload -U up-line-or-beginning-search \
             down-line-or-beginning-search
 
@@ -175,11 +174,15 @@ fi
 
 # ==== asdf ====
 
-export ASDF_DATA_DIR="${ASDF_DATA_DIR:-"$HOME/.asdf"}"
+# export ASDF_DATA_DIR="${ASDF_DATA_DIR:-"$HOME/.asdf"}"
 
-if [[ -d "$ASDF_DATA_DIR" ]]; then
-  add_to_path "${ASDF_DATA_DIR:-$HOME/.asdf}/shims"
-fi
+# if [[ -d "$ASDF_DATA_DIR" ]]; then
+#   add_to_path "${ASDF_DATA_DIR:-$HOME/.asdf}/shims"
+# fi
+
+# ==== mise ====
+
+eval "$(mise activate zsh)"
 
 # ==== 1Password ====
 

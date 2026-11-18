@@ -48,5 +48,8 @@ link_directory "$SCRIPT_DIR/ghostty/" "$HOME/Library/Application Support/com.mit
 # starship
 link_file "$SCRIPT_DIR/starship/starship.toml" "$XDG_CONFIG_HOME/starship.toml"
 
-# brew 
+# brew
 link_directory "$SCRIPT_DIR/homebrew/" "$XDG_CONFIG_HOME/homebrew"
+
+# mise
+link_directory "$SCRIPT_DIR/mise/" "$XDG_CONFIG_HOME/mise"
