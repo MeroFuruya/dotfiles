@@ -172,14 +172,6 @@ if JAVA_BREW_REFIX=$(brew --prefix --installed $1 2> /dev/null); then
   export JAVA_HOME="$JAVA_BREW_REFIX/"
 fi
 
-# ==== asdf ====
-
-# export ASDF_DATA_DIR="${ASDF_DATA_DIR:-"$HOME/.asdf"}"
-
-# if [[ -d "$ASDF_DATA_DIR" ]]; then
-#   add_to_path "${ASDF_DATA_DIR:-$HOME/.asdf}/shims"
-# fi
-
 # ==== mise ====
 
 eval "$(mise activate zsh)"
