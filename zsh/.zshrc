@@ -8,6 +8,12 @@ fi
 
 # ==== Path ====
 
+if [[ -v __PROFILE_OVERRIDE_PATH ]]; then
+  export PATH="$__PROFILE_OVERRIDE_PATH";
+else
+  export __PROFILE_OVERRIDE_PATH="$PATH";
+fi
+
 add_to_path() {
   if [[ -d "$1" ]]; then
     export PATH="$1:$PATH"
@@ -101,7 +107,6 @@ bindkey -M emacs '^[[1;5D' backward-word
 # [Shift-Tab] - move backwards through the completion menu
 bind-terminfo "${terminfo[kcbt]}" reverse-menu-complete
 
-
 # Editing
 
 # [Backspace] - delete backwards
@@ -119,7 +124,6 @@ bindkey -M emacs '^[[3;5~' kill-word
 
 # [Esc-W] - kill from cursor to mark
 bindkey '\ew' kill-region
-
 
 # Miscellaneous
 
@@ -167,7 +171,7 @@ add_to_path_brew "postgresql@16" "bin"
 
 
 # java
-local JAVA_BREW_REFIX
+local JAVA_BREW_REFIX=""
 if JAVA_BREW_REFIX=$(brew --prefix --installed $1 2> /dev/null); then
   export JAVA_HOME="$JAVA_BREW_REFIX/"
 fi
@@ -193,16 +197,9 @@ fi
 
 # ==== Basic Aliases ====
 
+alias reload="source $ZSH_CONFIG"
 alias ssh="TERM=xterm-256color ssh"
-
 alias ghostty="/Applications/Ghostty.app/Contents/MacOS/ghostty"
-
-if type lsd &> /dev/null; then
-  alias ll='lsd -lh'
-  alias la='lsd -alh'
-  alias tree='lsd --tree'
-fi
-
 alias q='exit'
 alias relpf="exec zsh"
 alias clip="pbcopy"
@@ -211,6 +208,12 @@ alias t="btop"
 alias tb="terminal-browser"
 alias v="nvim"
 alias e="$EDITOR"
+
+if type lsd &> /dev/null; then
+  alias ll='lsd -lh'
+  alias la='lsd -alh'
+  alias tree='lsd --tree'
+fi
 
 alias ag='(){ alias | grep $@ }'
 alias hg='(){ history | grep $@ }'
@@ -222,7 +225,7 @@ alias mc2shell="ssh personal-hetzner-mc2 ./mc/shell.sh"
 
 # ==== Python ====
 export PIP_REQUIRE_VIRTUALENV=true
-function _pyvenv() {
+function pyvenv() {
   venv_dirname=${1:-.venv}
   if [ -n "${VIRTUAL_ENV+1}" ]; then
     echo "Deactivating currently active venv"
@@ -237,12 +240,26 @@ function _pyvenv() {
   source "$venv_dirname/bin/activate"
 }
 
-alias pyvenv="_pyvenv"
-
-# export PYTHONSTARTUP="$XDG_CONFIG_HOME/python/pythonrc.py"
-
 # ==== git ====
+
 export GIT_REPOS_DIR="$HOME/repos"
+
+function git-init() {
+  if [[ $#@ < 1 || $1 == "-h" || $1 == "--help" ]]; then
+    echo "Usage: ${0} <repo_name>";
+    return 1;
+  fi
+
+  local repo_dir="${GIT_REPOS_DIR}/${1}"
+
+  if [[ -e "$repo_dir" ]]; then
+    echo "[ERROR] file or directory \"${repo_dir}\" already exists";
+    return 1;
+  fi
+
+  mkdir -p "$repo_dir";
+  git -C "$repo_dir" init -b main;
+}
 
 function git_current_branch() {
   local ref
@@ -280,10 +297,8 @@ function git_main_branch() {
   return 1
 }
 
-cdg() {
-  cd "$GIT_REPOS_DIR/$1"
-}
-compdef '_files -/ -W $GIT_REPOS_DIR' cdg
+cdg() { cd "$GIT_REPOS_DIR/$1"; }
+compdef '_files -/ -W "$GIT_REPOS_DIR"' cdg
 
 alias gps="git push --set-origin"
 alias glf="git pull -fp"
@@ -346,7 +361,6 @@ uuidc(){
   echo $uuid;
   echo -n $uuid | pbcopy
 }
-alias uuidc="uuidc"
 
 uuid(){
   local uuid="${$(uuidgen):l}";
@@ -360,7 +374,6 @@ uuid(){
   echo $uuid;
   echo -n $uuid | pbcopy
 }
-alias uuid="uuid"
 
 alias uuidtoc='uuid="{${$(pbpaste):u}}" && echo $uuid && echo -n $uuid | pbcopy'
 alias uuidfromc='uuid="${${${$(pbpaste):l}/\{}/\}}" && echo $uuid && echo -n $uuid | pbcopy'
@@ -377,13 +390,11 @@ if type deepl &> /dev/null; then
     fi
     /usr/bin/env deepl $@
   }
-  alias deepl="deepl"
 
   deepl-en() {
     local VALUE="${1:-"$(</dev/stdin)"}"
     echo -n $VALUE | deepl -t en
   }
-  alias deepl-en="deepl-en"
 fi
 
 # ==== Image Helpers ====
@@ -424,11 +435,6 @@ export DOCKER_CONFIG="$XDG_CONFIG_HOME/docker"
 export DOCKER_HOST="unix://${XDG_CONFIG_HOME}/colima/default/docker.sock"
 
 # ==== Completion ====
-# if [ "$(date +'%j')" != "$(stat -f '%Sm' -t '%j' "$ZSH_COMPDUMP" 2>/dev/null)" ]; then
-#   compinit
-# else
-#   compinit -C
-# fi
 
 eval "$(starship init zsh)"
 
